@@ -64,7 +64,7 @@ function startSpaceHold(){
   holdTimer = setTimeout(function repeat(){
     if(!spaceHeld) return;
     press();
-    holdTimer = setTimeout(repeat, 200); // 5 presses/second
+    holdTimer = setTimeout(repeat, 70); // about 14 presses/second
   }, 250);
 }
 
