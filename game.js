@@ -53,9 +53,44 @@ function save(){localStorage.setItem("spacebarClickerSave",JSON.stringify(state)
 function load(){
   try{const s=JSON.parse(localStorage.getItem("spacebarClickerSave"));if(s)state={...state,...s}}catch{}
 }
+let spaceHeld = false;
+let holdTimer = null;
+
+function startSpaceHold(){
+  if(spaceHeld) return;
+  spaceHeld = true;
+  press(); // immediate press
+  // After a short delay, holding Space repeatedly presses it.
+  holdTimer = setTimeout(function repeat(){
+    if(!spaceHeld) return;
+    press();
+    holdTimer = setTimeout(repeat, 200); // 5 presses/second
+  }, 250);
+}
+
+function stopSpaceHold(){
+  spaceHeld = false;
+  if(holdTimer){
+    clearTimeout(holdTimer);
+    holdTimer = null;
+  }
+  btn.classList.remove("pressed");
+}
+
 document.addEventListener("keydown",e=>{
-  if(e.code==="Space"&&!e.repeat){e.preventDefault();press()}
+  if(e.code==="Space"){
+    e.preventDefault();
+    startSpaceHold();
+  }
 });
+document.addEventListener("keyup",e=>{
+  if(e.code==="Space"){
+    e.preventDefault();
+    stopSpaceHold();
+  }
+});
+window.addEventListener("blur", stopSpaceHold);
+
 btn.addEventListener("click",press);
 shopEl.addEventListener("click",e=>{const b=e.target.closest(".buy");if(b)buy(b.dataset.id)});
 document.querySelector("#saveBtn").onclick=save;
