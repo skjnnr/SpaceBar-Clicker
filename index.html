@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Spacebar Clicker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <header>
+      <div id="score" class="score">0</div>
+      <div id="floating" class="floating"></div>
+      <div class="rate">per second: <span id="perSecond">0.000</span></div>
+    </header>
+
+    <button id="spaceButton" class="space-button" aria-label="Press spacebar">
+      S P A C E B A R
+    </button>
+
+    <section class="shop" id="shop"></section>
+
+    <footer>
+      <button id="saveBtn">Save</button>
+      <button id="resetBtn">Reset</button>
+      <span>SPACEBAR or click the big button • autosaves locally</span>
+    </footer>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
